@@ -4,7 +4,7 @@
 
 ### Folder Structure
 
-- With template engine
+-  With template engine
 
 ```
 - /models
@@ -23,9 +23,7 @@ mkdir client config models controllers routes sanitization validation utils && \
 tree
 ```
 
-
-
-- With frontend framework
+-  With frontend framework
 
 ```
 - /client
@@ -38,17 +36,13 @@ tree
 - server.js
 ```
 
-
-
-- New Style 
+-  New Style
 
 ```
 
 ```
 
-
-
-- Experimental Structure
+-  Experimental Structure
 
 Reference: [Link](https://www.coreycleary.me/project-structure-for-an-express-rest-api-when-there-is-no-standard-way/)
 
@@ -80,18 +74,14 @@ Reference: [Link](https://www.coreycleary.me/project-structure-for-an-express-re
 - server.js
 ```
 
-
-
 ### Server File
 
-- For template engine
+-  For template engine
 
 ```bash
 #installs
 npm i express ejs express-ejs-layouts dotenv
 ```
-
-
 
 ```javascript
 // server.js [snejsserver]
@@ -110,36 +100,30 @@ app.use(express.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 app.use(expressLayouts);
 
-app.use('/', myRoutes);
+app.use("/", myRoutes);
 
 const port = 3000;
 app.listen(port, () => console.log(`app started on port: ${port}`));
 ```
 
-
-
 ```javascript
 // myRoute.js [snroutefile]
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-router.get('/', (req, res) => {
-	res.redirect('/');
+router.get("/", (req, res) => {
+	res.redirect("/");
 });
 
 module.exports = router;
 ```
 
-
-
-- For client api
+-  For client api
 
 ```bash
 #installs
 npm i express cors dotenv
 ```
-
-
 
 ```javascript
 // server.js [snapiserver]
@@ -165,57 +149,51 @@ const port = 3000;
 app.listen(port, () => console.log(`listening on port: ${port}`));
 ```
 
-
-
 ### Route File
 
 ```javascript
 // routes/route.js
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const Ninja = require('../models/ninjas');
+const Ninja = require("../models/ninjas");
 
-router.get('/ninjas', (req, res) => {
-   Ninja.find({}).then(ninjas => {
-      res.send(ninjas);
-   });
-   // res.send({ type: 'GET' });
+router.get("/ninjas", (req, res) => {
+	Ninja.find({}).then((ninjas) => {
+		res.send(ninjas);
+	});
+	// res.send({ type: 'GET' });
 });
 
-router.post('/ninjas', (req, res, next) => {
-   Ninja.create(req.body)
-      .then(ninja => {
-         res.send(ninja);
-      })
-      .catch(next);
+router.post("/ninjas", (req, res, next) => {
+	Ninja.create(req.body)
+		.then((ninja) => {
+			res.send(ninja);
+		})
+		.catch(next);
 });
 
-router.put('/ninjas/:id', (req, res, next) => {
-   //to update, update with, options -> returns a the obj.
-   Ninja.findByIdAndUpdate({ _id: req.params.id }, req.body, {
-      useFindAndModify: false
-   }).then(() => {
-      Ninja.findOne({ _id: req.params.id }).then(ninja => res.send(ninja));
-   });
+router.put("/ninjas/:id", (req, res, next) => {
+	//to update, update with, options -> returns a the obj.
+	Ninja.findByIdAndUpdate({ _id: req.params.id }, req.body, {
+		useFindAndModify: false,
+	}).then(() => {
+		Ninja.findOne({ _id: req.params.id }).then((ninja) => res.send(ninja));
+	});
 });
 
-router.delete('/ninjas/:id', (req, res, next) => {
-   // console.log(req.params.id);
-   Ninja.findByIdAndRemove({
-      _id: req.params.id
-   }).then(ninja => {
-      res.send(ninja);
-   });
+router.delete("/ninjas/:id", (req, res, next) => {
+	// console.log(req.params.id);
+	Ninja.findByIdAndRemove({
+		_id: req.params.id,
+	}).then((ninja) => {
+		res.send(ninja);
+	});
 });
 
 module.exports = router;
 ```
 
-
-
 ## Database Connection
-
-
 
 ### Mongodb setup :
 
@@ -224,26 +202,26 @@ module.exports = router;
 npm i mongoose
 ```
 
-
-
 ```javascript
 // db.js [snmongoconfig]
 // require this file in server.js
 const dbName = "mern-todo";
 const mongoose = require("mongoose");
 const mongoURI =
-	`mongodb+srv://paras594:mongodbparas101@mern-todo-0pet9.mongodb.net/test?retryWrites=true&w=majority` ||
+	`mongodb+srv://paras594:password@mern-todo-0pet9.mongodb.net/test?retryWrites=true&w=majority` ||
 	`mongodb://localhost:27017/${dbName}`;
 const options = {
 	useNewUrlParser: true,
-    useUnifiedTopology: true
+	useUnifiedTopology: true,
 };
 
 mongoose.connect(mongoURI, options);
 
-mongoose.connection.on("connected", () => console.log("connected on:", mongoURI));
+mongoose.connection.on("connected", () =>
+	console.log("connected on:", mongoURI)
+);
 
-mongoose.connection.on("error", err => console.log("error:", err));
+mongoose.connection.on("error", (err) => console.log("error:", err));
 
 mongoose.connection.on("disconnected", () => console.log("disconnected"));
 
@@ -255,33 +233,29 @@ process.on("SIGINT", () => {
 });
 ```
 
-
-
 ### Mongoose Models/Schema
 
 ```javascript
 // mongo schema file [snmongoschema]
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const blogsSchema = new Schema({
-    title:  String, // String is shorthand for {type: String}
-    author: String,
-    body:   String,
-    comments: [{ body: String, date: Date }], // arr of objects
-    date: { type: Date, default: Date.now },
-    hidden: Boolean,
-    meta: {
-      votes: Number,
-      favs:  Number
-    }
+	title: String, // String is shorthand for {type: String}
+	author: String,
+	body: String,
+	comments: [{ body: String, date: Date }], // arr of objects
+	date: { type: Date, default: Date.now },
+	hidden: Boolean,
+	meta: {
+		votes: Number,
+		favs: Number,
+	},
 });
 
 const Blogs = mongoose.model("Blog", blogsSchema);
 module.exports = Blogs;
 ```
-
-
 
 ### Postgres Setup :
 
@@ -289,8 +263,6 @@ module.exports = Blogs;
 #installs
 npm i pg dotenv
 ```
-
-
 
 ```
 # .env file [snpgenv]
@@ -301,8 +273,6 @@ DB_PORT=5432
 DB_DATABASE=database
 ```
 
-
-
 ```javascript
 // db.js [snpgconfig]
 require("dotenv").config();
@@ -310,23 +280,19 @@ require("dotenv").config();
 const { Pool } = require("pg");
 const isProduction = process.env.NODE_ENV === "production";
 
-const connectionString = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${
-	process.env.DB_HOST
-}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`;
+const connectionString = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`;
 
 const db = new Pool({
 	connectionString: isProduction ? process.env.DATABASE_URL : connectionString,
-	ssl: isProduction
+	ssl: isProduction,
 });
 
 module.exports = db; // db.query(...) to query database;
 ```
 
-
-
 ## EJS Template Engine
 
-- Folder Structure
+-  Folder Structure
 
 ```
 - /views
@@ -335,9 +301,7 @@ module.exports = db; // db.query(...) to query database;
 	- index.ejs
 ```
 
-
-
-- Layout file : [snejslayout]
+-  Layout file : [snejslayout]
 
 ```ejs
 <!DOCTYPE html>
@@ -357,18 +321,14 @@ module.exports = db; // db.query(...) to query database;
 </html>
 ```
 
-
-
-- Including partials in a file: [snejsinclude]
+-  Including partials in a file: [snejsinclude]
 
 ```ejs
 <% include partials/navbar.ejs %>
 <h1>This is a heading</h1>
 ```
 
-
-
-- Rendering and sending data in ejs file
+-  Rendering and sending data in ejs file
 
 ```javascript
 // example 1
@@ -377,24 +337,22 @@ app.get("/", (req, res) => {
 });
 
 // example 2
-app.get('/', function(req, res) {
-    const drinks = [
-        { name: 'Bloody Mary', drunkness: 3 },
-        { name: 'Martini', drunkness: 5 },
-        { name: 'Scotch', drunkness: 10 }
-    ];
-    const tagline = "this is a tag line.";
+app.get("/", function (req, res) {
+	const drinks = [
+		{ name: "Bloody Mary", drunkness: 3 },
+		{ name: "Martini", drunkness: 5 },
+		{ name: "Scotch", drunkness: 10 },
+	];
+	const tagline = "this is a tag line.";
 
-    res.render('index', {
-        drinks: drinks,
-        tagline: tagline
-    });
+	res.render("index", {
+		drinks: drinks,
+		tagline: tagline,
+	});
 });
 ```
 
-
-
-- Using Data in ejs file
+-  Using Data in ejs file
 
 ```ejs
 <!-- example 1 -->
@@ -410,11 +368,7 @@ app.get('/', function(req, res) {
 </ul>
 ```
 
-
-
 ## Authentication
-
-
 
 ### JWT based authentication
 
@@ -422,8 +376,6 @@ app.get('/', function(req, res) {
 #installs
 npm i bcryptjs cors is-empty jsonwebtoken passport passport-jwt validator
 ```
-
-
 
 #### Server setup
 
@@ -454,8 +406,6 @@ const port = 8080;
 app.listen(port, () => console.log(`listening on port: ${port}`));
 ```
 
-
-
 #### User model
 
 ```javascript
@@ -466,28 +416,26 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
 	name: {
 		type: String,
-		required: true
+		required: true,
 	},
 	email: {
 		type: String,
-		required: true
+		required: true,
 	},
 	password: {
 		type: String,
-		required: true
+		required: true,
 	},
 	date: {
 		type: Date,
-		default: Date.now
-	}
+		default: Date.now,
+	},
 });
 
 const User = mongoose.model("users", UserSchema);
 
 module.exports = User;
 ```
-
-
 
 #### Passport setup
 
@@ -500,24 +448,22 @@ const User = require("../models/UserSchema");
 
 const opts = {
 	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-	secretOrKey: "secret"
+	secretOrKey: "secret",
 };
 
-module.exports = passport => {
+module.exports = (passport) => {
 	passport.use(
 		new JWTStrategy(opts, (jwt_payload, done) => {
 			User.findById(jwt_payload.id)
-				.then(user => {
+				.then((user) => {
 					if (user) return done(null, user);
 					return done(null, false);
 				})
-				.catch(err => console.log(err));
+				.catch((err) => console.log(err));
 		})
 	);
 };
 ```
-
-
 
 #### Sanitization
 
@@ -539,10 +485,6 @@ const sanitizeRegisterInput = (data) => {
 module.exports = sanitizeRegisterInput;
 ```
 
-
-
-
-
 #### Validation
 
 ```javascript
@@ -550,7 +492,7 @@ module.exports = sanitizeRegisterInput;
 const Validator = require("validator");
 const isEmpty = require("is-empty");
 
-const validateRegisterInput = data => {
+const validateRegisterInput = (data) => {
 	let errors = {};
 
 	// convert empty fields to an empty string so we can use validator functions
@@ -590,14 +532,12 @@ const validateRegisterInput = data => {
 
 	return {
 		errors,
-		isValid: isEmpty(errors)
+		isValid: isEmpty(errors),
 	};
 };
 
 module.exports = validateRegisterInput;
 ```
-
-
 
 #### Routes
 
@@ -619,14 +559,14 @@ router.post("/register", (req, res) => {
 		return res.status(400).json(errors);
 	}
 
-	User.findOne({ email: req.body.email }).then(user => {
+	User.findOne({ email: req.body.email }).then((user) => {
 		if (user) {
 			return res.status(400).json({ message: "email already exists" });
 		} else {
 			const newUser = new User({
 				name: req.body.name,
 				email: req.body.email,
-				password: req.body.password
+				password: req.body.password,
 			});
 
 			bcrypt.genSalt(10, (err, salt) => {
@@ -635,8 +575,8 @@ router.post("/register", (req, res) => {
 					newUser.password = hash;
 					newUser
 						.save()
-						.then(user => res.json(user))
-						.catch(err => console.log(err));
+						.then((user) => res.json(user))
+						.catch((err) => console.log(err));
 				});
 			});
 		}
@@ -653,34 +593,34 @@ router.post("/login", (req, res) => {
 	const email = req.body.email;
 	const password = req.body.password;
 
-	User.findOne({ email: email }).then(user => {
+	User.findOne({ email: email }).then((user) => {
 		if (!user) {
 			return res.status(404).json({ emailNotFound: "email not found" });
 		}
 
-		bcrypt.compare(password, user.password).then(isMatch => {
+		bcrypt.compare(password, user.password).then((isMatch) => {
 			if (isMatch) {
 				const payload = {
 					id: user.id,
-					name: user.name
+					name: user.name,
 				};
 
 				jwt.sign(
 					payload,
 					"secret",
 					{
-						expiresIn: 31556926
+						expiresIn: 31556926,
 					},
 					(err, token) => {
 						res.json({
 							success: true,
-							token: `Bearer ${token}`
+							token: `Bearer ${token}`,
 						});
 					}
 				);
 			} else {
 				return res.status(400).json({
-					passwordIncorrect: "password incorrect"
+					passwordIncorrect: "password incorrect",
 				});
 			}
 		});
@@ -691,15 +631,15 @@ router.post("/login", (req, res) => {
 app.get(
 	"/private",
 	passport.authenticate("jwt", { session: false, failWithError: true }),
-	function(req, res, next) {
+	function (req, res, next) {
 		// handle success
 		next();
 	},
-	function(err, req, res, next) {
+	function (err, req, res, next) {
 		// handle err;
 		if (err) {
 			res.status(err.status).json({
-				error: err.message
+				error: err.message,
 			});
 		}
 	},
@@ -712,9 +652,7 @@ app.get(
 module.exports = router;
 ```
 
-
-
-### Local Strategy authentication 
+### Local Strategy authentication
 
 ```bash
 #installs
@@ -749,7 +687,7 @@ app.use(
 	session({
 		secret: "paras",
 		saveUninitialized: true,
-		resave: true
+		resave: true,
 	})
 );
 
@@ -775,11 +713,11 @@ passport.use(
 	})
 );
 
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
 	done(null, user);
 });
 
-passport.deserializeUser(function(user, done) {
+passport.deserializeUser(function (user, done) {
 	done(null, user);
 });
 
@@ -816,7 +754,7 @@ app.post("/register", (req, res) => {
 		} else {
 			const newUser = new User({
 				email: req.body.email,
-				password: req.body.password
+				password: req.body.password,
 			});
 
 			bcrypt.genSalt(10, (err, salt) => {
@@ -824,8 +762,8 @@ app.post("/register", (req, res) => {
 					newUser.password = hash;
 					newUser
 						.save()
-						.then(user => res.redirect("/login"))
-						.catch(err => console.log(err));
+						.then((user) => res.redirect("/login"))
+						.catch((err) => console.log(err));
 				});
 			});
 		}
@@ -839,7 +777,7 @@ app.get("/login", (req, res) => {
 app.post(
 	"/login",
 	passport.authenticate("local", {
-		failureRedirect: "/login"
+		failureRedirect: "/login",
 	}),
 	(req, res) => {
 		// console.log(req.body, req.user);
@@ -861,9 +799,9 @@ const port = 3000;
 app.listen(port, () => console.log(`listening on port: ${port}`));
 ```
 
+### Multiple auths in one
 
-
-
+Reference: [link](https://medium.com/@rustyonrampage/using-oauth-2-0-along-with-jwt-in-node-express-9e0063d911ed)
 
 ## Image Upload
 
@@ -871,8 +809,6 @@ app.listen(port, () => console.log(`listening on port: ${port}`));
 #installs
 npm i multer
 ```
-
-
 
 ### Disk Storage
 
@@ -882,42 +818,40 @@ const multer = require("multer");
 const path = require("path");
 
 function sanitizeFile(file, cb) {
-   // Define the allowed extension
-   let fileExts = [".png", ".jpg", ".jpeg", ".gif"];
-   // Check allowed extensions
-   let isAllowedExt = fileExts.includes(
-      path.extname(file.originalname.toLowerCase())
-   );
-   
-   // Mime type must be an image
-   let isAllowedMimeType = file.mimetype.startsWith("image/");
-   if (isAllowedExt && isAllowedMimeType) {
-      return cb(null, true); // no errors
-   } else {
-      // pass error msg to callback, which can be displaye in frontend
-      cb("Error: File type not allowed!");
-   }
+	// Define the allowed extension
+	let fileExts = [".png", ".jpg", ".jpeg", ".gif"];
+	// Check allowed extensions
+	let isAllowedExt = fileExts.includes(
+		path.extname(file.originalname.toLowerCase())
+	);
+
+	// Mime type must be an image
+	let isAllowedMimeType = file.mimetype.startsWith("image/");
+	if (isAllowedExt && isAllowedMimeType) {
+		return cb(null, true); // no errors
+	} else {
+		// pass error msg to callback, which can be displaye in frontend
+		cb("Error: File type not allowed!");
+	}
 }
 
 const storage = multer.diskStorage({
-    destination: path.join(__dirname, "public", "uploads"),
+	destination: path.join(__dirname, "public", "uploads"),
 	filename: (req, file, cb) => {
-      cb(null, Date.now() + "-" + file.originalname);
-    }
+		cb(null, Date.now() + "-" + file.originalname);
+	},
 });
 
 const upload = multer({
 	storage: storage,
 	limit: { fileSize: 10000000 }, // 10mb
-    fileFilter: (req, file, cb) => {
-       sanitizeFile(file, cb);
-    }
+	fileFilter: (req, file, cb) => {
+		sanitizeFile(file, cb);
+	},
 });
 
 module.exports = upload;
 ```
-
-
 
 ```javascript
 // usage in routes file
@@ -927,18 +861,16 @@ app.post("/add", upload.single("imageURL"), (req, res) => {
 	console.log(req.file);
 	const user = new User({
 		name: req.body.name,
-		imageURL: req.file.path
+		imageURL: req.file.path,
 	});
 
-	user.save().then(result => {
+	user.save().then((result) => {
 		res.status(201).json({
-			message: "User registered successfully!"
+			message: "User registered successfully!",
 		});
 	});
 });
 ```
-
-
 
 ### Memory Storage
 
@@ -948,20 +880,20 @@ const multer = require("multer");
 const path = require("path");
 
 function sanitizeFile(file, cb) {
-   // Define the allowed extension
-   let fileExts = ["png", "jpg", "jpeg", "gif"];
-   // Check allowed extensions
-   let isAllowedExt = fileExts.includes(
-      file.originalname.split(".")[1].toLowerCase()
-   );
-   // Mime type must be an image
-   let isAllowedMimeType = file.mimetype.startsWith("image/");
-   if (isAllowedExt && isAllowedMimeType) {
-      return cb(null, true); // no errors
-   } else {
-      // pass error msg to callback, which can be displaye in frontend
-      cb("Error: File type not allowed!");
-   }
+	// Define the allowed extension
+	let fileExts = ["png", "jpg", "jpeg", "gif"];
+	// Check allowed extensions
+	let isAllowedExt = fileExts.includes(
+		file.originalname.split(".")[1].toLowerCase()
+	);
+	// Mime type must be an image
+	let isAllowedMimeType = file.mimetype.startsWith("image/");
+	if (isAllowedExt && isAllowedMimeType) {
+		return cb(null, true); // no errors
+	} else {
+		// pass error msg to callback, which can be displaye in frontend
+		cb("Error: File type not allowed!");
+	}
 }
 
 const storage = multer.memoryStorage();
@@ -969,15 +901,13 @@ const storage = multer.memoryStorage();
 const upload = multer({
 	storage: storage,
 	limit: { fileSize: 10000000 }, // 10mb
-    fileFilter: (req, file, cb) => {
-       sanitizeFile(file, cb);
-    }
+	fileFilter: (req, file, cb) => {
+		sanitizeFile(file, cb);
+	},
 });
 
 module.exports = upload;
 ```
-
-
 
 ```javascript
 // usage in routes file
@@ -985,29 +915,26 @@ const upload = require("../config/uploadImage.js");
 
 // "image" corresponds to the name of image input field in frontend
 app.post("/upload", upload.single("image"), (req, res) => {
-   // create img str [snimgstr]
+	// create img str [snimgstr]
 	const base64str = req.file.buffer.toString("base64");
 	const imageStr = `data:${req.file.mimetype};base64,${base64str}`;
 
 	db.query(
-      "INSERT INTO myimages (image) VALUES ($1)", [imageStr], 
-      (err, result) => {
-         if (err) {
-            console.log("error occured", err);
-            return;
-         }
-         console.log("data inserted successfully");
-         res.json("success");
+		"INSERT INTO myimages (image) VALUES ($1)",
+		[imageStr],
+		(err, result) => {
+			if (err) {
+				console.log("error occured", err);
+				return;
+			}
+			console.log("data inserted successfully");
+			res.json("success");
 		}
-   );
+	);
 });
 ```
 
-
-
 ## Email Systems
-
-
 
 ### Using gmail SMTP
 
@@ -1015,8 +942,6 @@ app.post("/upload", upload.single("image"), (req, res) => {
 # installs
 npm i nodemailer
 ```
-
-
 
 ```js
 // config/mailTransporter.js [snmailconfig]
@@ -1030,38 +955,33 @@ let transporter = nodemailer.createTransport({
 	service: "gmail",
 	auth: {
 		user: gmailAddress,
-		pass: gmailPass
-	}
+		pass: gmailPass,
+	},
 });
 
 module.exports = transporter;
 ```
 
-
-
 ```js
-// routes 
+// routes
 const transporter = require("../config/mailTransporter.js");
 
 router.post("/contact", async (req, res) => {
-   try{
-      // send mail [snsendmail]
-      const info = await transporter.sendMail({
-         from: "sender",
-         to: "receiver's mail",
-         subject: "sending email with nodejs",
-         text: "this is a message"
-      });
-      
-      console.log(info.response);
-      
-   } catch(err) {
-      console.log(err);
-   }
-})
+	try {
+		// send mail [snsendmail]
+		const info = await transporter.sendMail({
+			from: "sender",
+			to: "receiver's mail",
+			subject: "sending email with nodejs",
+			text: "this is a message",
+		});
+
+		console.log(info.response);
+	} catch (err) {
+		console.log(err);
+	}
+});
 ```
-
-
 
 ### Mailgun service
 
@@ -1070,15 +990,11 @@ router.post("/contact", async (req, res) => {
 npm i nodemailer nodemailer-mailgun-transport
 ```
 
-
-
 ```
 # .env file [snmailgunenv]
-API_KEY=7c64757e394cbaf880241f1845287029-9dfbeecd-2eaaff1c
-DOMAIN=sandboxd0ab2eedc4614c85945ca130538c21e7.mailgun.org
+API_KEY=mailgun_api_key
+DOMAIN=mailgun_domain
 ```
-
-
 
 ```js
 // config/mailTransporter.js [snmailgunconfig]
@@ -1088,8 +1004,8 @@ const mailGun = require("nodemailer-mailgun-transport");
 const auth = {
 	auth: {
 		api_key: process.env.API_KEY,
-		domain: process.env.DOMAIN
-	}
+		domain: process.env.DOMAIN,
+	},
 };
 
 const transporter = nodemailer.createTransport(mailGun(auth));
@@ -1097,41 +1013,36 @@ const transporter = nodemailer.createTransport(mailGun(auth));
 module.exports = transporter;
 ```
 
-
-
 ```js
 // routes
 const transporter = require("../config/mailTransporter.js");
 
 router.post("/contact", async (req, res) => {
-   try{
-      const info = await transporter.sendMail({
-         from: "sender",
-         to: "receiver's mail",
-         subject: "sending email with nodejs",
-         text: "this is a message"
-      });
-      
-      console.log(info.response);
-      
-   } catch(err) {
-      console.log(err);
-   }
-})
+	try {
+		const info = await transporter.sendMail({
+			from: "sender",
+			to: "receiver's mail",
+			subject: "sending email with nodejs",
+			text: "this is a message",
+		});
+
+		console.log(info.response);
+	} catch (err) {
+		console.log(err);
+	}
+});
 ```
-
-
 
 ## Forgot Password Setup
 
 ```js
 // routes [snforgotpassroute]
 router.post("/forgot-password", async (req, res) => {
-   // get the email to send reset link to
+	// get the email to send reset link to
 	const { email } = req.body;
 
 	try {
-      // check if email exists
+		// check if email exists
 		const user = await getUserByEmail(email);
 
 		if (!user) {
@@ -1139,16 +1050,16 @@ router.post("/forgot-password", async (req, res) => {
 				success: false,
 				message: "Request failed.",
 				errors: {
-					error: "Email not found."
-				}
+					error: "Email not found.",
+				},
 			});
 		}
-		
-      // create reset id and request
+
+		// create reset id and request
 		const uniqueId = uuid();
 		const request = {
 			id: uniqueId,
-			email
+			email,
 		};
 
 		// save the request in database
@@ -1159,32 +1070,32 @@ router.post("/forgot-password", async (req, res) => {
 			from: "Bnf App",
 			to: email,
 			subject: "Reset Bnf App password",
-			text: `To reset your password, click on the following link: http://frontend-react-route/reset/${uniqueId}`
+			text: `To reset your password, click on the following link: http://frontend-react-route/reset/${uniqueId}`,
 		});
 
 		console.log(info.response);
 
 		return res.json({
 			success: true,
-			message: "Email sent."
+			message: "Email sent.",
 		});
 	} catch (err) {
 		res.status(400).json({
 			success: false,
 			message: "Request failed.",
 			errors: {
-				error: err
-			}
+				error: err,
+			},
 		});
 	}
 });
 
 router.patch("/reset", async (req, res) => {
-   // get the unique reset id and new password
+	// get the unique reset id and new password
 	const { id, password } = req.body;
 
 	try {
-      // check if request exists
+		// check if request exists
 		const resetRequest = await getResetQueryById(id);
 
 		if (!resetRequest) {
@@ -1192,8 +1103,8 @@ router.patch("/reset", async (req, res) => {
 				success: false,
 				message: "Request failed.",
 				errors: {
-					error: "Reset query not found."
-				}
+					error: "Reset query not found.",
+				},
 			});
 		}
 
@@ -1209,8 +1120,8 @@ router.patch("/reset", async (req, res) => {
 				success: false,
 				message: "Request Timeout.",
 				errors: {
-					error: "Your reset password period has expired. Make a new reset password request."
-				}
+					error: "Your reset password period has expired. Make a new reset password request.",
+				},
 			});
 		}
 
@@ -1225,8 +1136,8 @@ router.patch("/reset", async (req, res) => {
 						success: false,
 						message: "Some error occured.",
 						errors: {
-							error: err
-						}
+							error: err,
+						},
 					});
 				}
 
@@ -1236,7 +1147,7 @@ router.patch("/reset", async (req, res) => {
 
 				return res.status(200).json({
 					success: true,
-					message: "Password updated."
+					message: "Password updated.",
 				});
 			});
 		});
@@ -1245,12 +1156,9 @@ router.patch("/reset", async (req, res) => {
 			success: false,
 			message: "Request failed.",
 			errors: {
-				error: err
-			}
+				error: err,
+			},
 		});
 	}
 });
 ```
-
-
-

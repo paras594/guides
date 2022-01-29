@@ -815,7 +815,7 @@ int main() {
 
 ### Iterators
 
-Iterators play a critical role in connecting algorithm with containers along with the manipulation of data stored inside the containers
+Iterators play a critical role in connecting algorithm with containers along with the manipulation of data stored inside the  containers
 
 ![Types of iterators](https://media.geeksforgeeks.org/wp-content/uploads/iteratorOperation.jpg)
 

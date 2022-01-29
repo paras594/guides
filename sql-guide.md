@@ -101,6 +101,16 @@ DROP DATABASE dbname;
 
 ### Working with tables
 
+**View all tables in a db**
+
+```mysql
+SHOW TABLES;
+
+SHOW FULL TABLES; # includes table type
+```
+
+
+
 **See a table structure**
 
 ```mysql

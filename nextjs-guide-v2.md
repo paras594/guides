@@ -296,4 +296,4 @@ function MyApp({ Component, pageProps }) {
 
 - no need to import react. handled by next behind the scenes
 - hydrate means react will take over and turn this into a single page app
-- you can directly fetch data from database in getStaticProps instead of querying api
+- you can directly fetch data from database in getStaticProps instead of querying api  
