@@ -160,7 +160,7 @@ async function handler(req, res) {
         const data = req.body;
 
         const client = await MongoClient.connect(
-            "mongodb+srv://paras594:mongodbparas101@cluster0.zaceq.mongodb.net/meetups?retryWrites=true&w=majority"
+            /* mongouri */
         );
         const db = client.db();
 
