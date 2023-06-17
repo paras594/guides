@@ -2,32 +2,26 @@
 
 [TOC]
 
-
-
 ### Folder structure
 
 ```
 - /src
-	- /components
-	- /images
-	- /redux
-		- /actions
-		- /reducers
-		- /selectors
-		- /utils
-		- store.js
-	- /routes
-	- /styles
-	- /utility
-	- App.js
-	- index.js
+    - /components
+    - /images
+    - /redux
+        - /actions
+        - /reducers
+        - /selectors
+        - /utils
+        - store.js
+    - /routes
+    - /styles
+    - /utility
+    - App.js
+    - index.js
 ```
 
-
-
 ### React Hooks
-
-
 
 #### State Hook
 
@@ -37,21 +31,17 @@ import {useState} from "react";
 const [state, setState] = useState("");
 ```
 
-
-
 #### Lifecycle method hooks
 
 - Component did mount
 
 ```js
 componentDidMount() {
-	console.log('I am mounted!');
+    console.log('I am mounted!');
 }
 
 useEffect(() => console.log('mounted'), []);
 ```
-
-
 
 - Component did update
 
@@ -67,25 +57,21 @@ useEffect(() => {
 }, [myName]); // if myName changes, run effect
 ```
 
-
-
 - Component will unmount
 
 ```js
 componentWillUnmount() {
-	console.log('will unmount');
+    console.log('will unmount');
 }
 
 useEffect(() => {
-  	// some other things...
-	return () => {
-   	// clean up function 
-		console.log('will unmount');
-	}
+      // some other things...
+    return () => {
+       // clean up function 
+        console.log('will unmount');
+    }
 }, []);
 ```
-
-
 
 ## React Router
 
@@ -105,8 +91,6 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 </Router>
 ```
 
-
-
 #### Hooks
 
 Reference: 
@@ -124,8 +108,6 @@ location.pathname
 history.push("/profile"); 
 history.goBack();
 ```
-
-
 
 #### Nested Routing
 
@@ -149,11 +131,9 @@ function Auth() {
 }
 ```
 
-
-
 #### Private Routes
 
-````jsx
+```jsx
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -176,9 +156,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 };
 
 export default PrivateRoute
-````
-
-
+```
 
 #### Links and Navlinks
 
@@ -189,17 +167,11 @@ import { Link, NavLink } from "react-router-dom";
 <NavLink to="/about">About</NavLink> // has active class
 ```
 
-
-
-
-
 ## Redux Setup
 
 ```bash
 npm i redux react-redux
 ```
-
-
 
 Reference: [Link](https://reactgo.com/react-redux-hooks/)
 
@@ -213,16 +185,14 @@ import allReducers from "./reducers/allReducers";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
-	allReducers,
-	composeEnhancers(applyMiddleware(thunk))
+    allReducers,
+    composeEnhancers(applyMiddleware(thunk))
 );
 
 // const store = createStore(allReducers, applyMiddleware(thunk));
 
 export default store;
 ```
-
-
 
 ### Using Store
 
@@ -234,34 +204,30 @@ import { Provider } from "react-redux";
 </Provider>
 ```
 
-
-
 ### Create Reducer
 
 ```js
 // reducers
 const initialState = {
-	name: "",
+    name: "",
    list: []
 };
 
 const myReducer = (state = initialState, action) => {
-	switch (action.type) {
-		case "ADD_NAME":
-			return {
-				...state,
-				name: action.payload
-			};
-         
-		default:
-			return state;
-	}
+    switch (action.type) {
+        case "ADD_NAME":
+            return {
+                ...state,
+                name: action.payload
+            };
+
+        default:
+            return state;
+    }
 };
 
 export default myReducer;
 ```
-
-
 
 ```js
 // allReducers
@@ -269,7 +235,7 @@ import { combineReducers } from "redux";
 import myReducer from "./myReducer";
 
 const allReducers = combineReducers({
-	my: myReducer,
+    my: myReducer,
 });
 
 // state.my has state for that reducer
@@ -277,16 +243,14 @@ const allReducers = combineReducers({
 export default allReducers;
 ```
 
-
-
 ### Create Action
 
 ```js
 export function setName(name) {
-	return {
-		type: "ADD_NAME",
-		payload: name,
-	};
+    return {
+        type: "ADD_NAME",
+        payload: name,
+    };
 }
 
 // async actions
@@ -303,15 +267,11 @@ export function fetchData(){
 }
 ```
 
-
-
 ### Create Selectors
 
 ```bash
 npm i reselect
 ```
-
-
 
 ```js
 import { createSelector } from "reselect";
@@ -319,25 +279,23 @@ import { createSelector } from "reselect";
 const selectData = state => state.myData;
 
 const selectOne = createSelector(
-	selectData,
-	data => data.one
+    selectData,
+    data => data.one
 );
 
 const selectTwo = createSelector(
-	selectData,
-	data => data.Two
+    selectData,
+    data => data.Two
 );
 
 export const selectOneTwo = createSelector(
-	[selectOne, selectTwo],
-	(one, two) => ({
-		one, 
-		two
-	})
+    [selectOne, selectTwo],
+    (one, two) => ({
+        one, 
+        two
+    })
 );
 ```
-
-
 
 ### Hooks
 
@@ -353,8 +311,6 @@ import { useSelector } from 'react-redux';
 const counter = useSelector(state => state.counter);
 ```
 
-
-
 #### Change State using dispatch
 
 ```js
@@ -365,15 +321,11 @@ const dispatch = useDispatch();
 dispatch({ type: 'increment-counter' }); // dispatch action
 ```
 
-
-
 ## JWT Auth Setup
 
 ```bash
 npm i jwt-decode is-empty
 ```
-
-
 
 ### Auth Reducer
 
@@ -401,25 +353,20 @@ const authReducer = (state = initialState, action) => {
 export default authReducer;
 ```
 
-
-
 ### Errors Reducer
 
 ```js
 const errorReducer = (state = {}, action) => {
-	switch (action.type) {
-		case "GET_ERRORS":
-			return action.payload;
-		default:
-			return state;
-	}
+    switch (action.type) {
+        case "GET_ERRORS":
+            return action.payload;
+        default:
+            return state;
+    }
 };
 
 export default errorReducer;
-
 ```
-
-
 
 ### Auth Actions
 
@@ -463,10 +410,7 @@ export const logoutUser = () => {
    // set current user to empty object {} which will set isAuthenticated to false
    return setCurrentUser({});
 };
-
 ```
-
-
 
 ### Set Auth Token Utility
 
@@ -474,19 +418,17 @@ export const logoutUser = () => {
 import axios from "axios";
 
 const setAuthToken = token => {
-	if (token) {
-		// apply authorization token to every request if logged in
-		axios.defaults.headers.common["Authorization"] = token;
-	} else {
-		// delete auth header
-		delete axios.defaults.headers.common["Authorization"];
-	}
+    if (token) {
+        // apply authorization token to every request if logged in
+        axios.defaults.headers.common["Authorization"] = token;
+    } else {
+        // delete auth header
+        delete axios.defaults.headers.common["Authorization"];
+    }
 };
 
 export default setAuthToken;
 ```
-
-
 
 ### Usage In React
 
@@ -495,7 +437,7 @@ const App = () => {
    if (localStorage.jwtToken) {
       const token = localStorage.jwtToken;
       setAuthToken(token);
-	
+
       // decode jwt token
       const decoded = jwt_decode(token);
       const dispatch = useDispatch();
@@ -527,8 +469,6 @@ const App = () => {
    );
 };
 ```
-
-
 
 ## Framer motion
 
@@ -572,15 +512,11 @@ const itemVar = {
 </motion.ul>
 ```
 
-
-
 ## Formik
 
 ```bash
 npm install formik --save
 ```
-
-
 
 **Basic formik use**
 
@@ -614,51 +550,40 @@ import { Formik } from "formik"
 </Formik>
 ```
 
-
-
 **References**
 
 - formik basics: [link](https://atomizedobjects.com/blog/react/how-to-use-formik-in-react/)
 - formik, yup, material ui: [link](https://maneesha-erandi.medium.com/react-form-validation-with-formik-material-ui-and-yup-1cd92eac887)
 
-
-
 ## Helper Functions
-
-
 
 ### Truncate string
 
 ```js
 export function truncate(str, limit) {
-	if (typeof str !== "string") return;
-	if (str.length > limit) {
-		const endIndex = limit - 3;
-		let newStr = str.slice(0, endIndex) + " ... ";
-		return newStr;
-	} else {
-		return str + " ";
-	}
+    if (typeof str !== "string") return;
+    if (str.length > limit) {
+        const endIndex = limit - 3;
+        let newStr = str.slice(0, endIndex) + " ... ";
+        return newStr;
+    } else {
+        return str + " ";
+    }
 }
 ```
-
-
 
 ### Capitalize string
 
 ```js
 export function capitalize(str) {
-	return str.charAt(0).toUpperCase() + str.slice(1);
+    return str.charAt(0).toUpperCase() + str.slice(1);
 }
 ```
-
-
 
 ### Open Link
 
 ```js
 export function openLink(url) {
-	window.open(url, "_blank");
+    window.open(url, "_blank");
 }
 ```
-

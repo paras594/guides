@@ -1,7 +1,5 @@
 # Programming Terms
 
-
-
 ### First Class Functions
 
 Functions that can be passed as arguments, i.e , first class entities of language
@@ -12,11 +10,11 @@ function add (first,second, callback){
    console.log(first + second);
    callback();
 }   
-        
+
 add(2, 3, function(){
    console.log('done');
 });
-   
+
 
 // example 2
 function logDone(){
@@ -24,8 +22,6 @@ function logDone(){
 }
 add(2, 3, logDone); //passing as if it is a variable..but not invoking it using ();
 ```
-
-
 
 **Explanation:**
 
@@ -37,13 +33,9 @@ add(2, 3, logDone); //passing as if it is a variable..but not invoking it using 
 - we can also return a function from a function
 - functions passed as parameter are called first class functions
 
-
-
 ### Higher Order Functions
 
 Functions that accepts functions as arguments or returns function as its result. E.g map, reduce, filter etc.
-
-
 
 ### Event Driven Environment
 
@@ -60,8 +52,6 @@ $(document).ready(function(){
 });
 ```
 
-
-
 **Explanation:**
 
 - javascript is not like php which loads all the data and dies after that becoz its work is over, unless we reload
@@ -70,8 +60,6 @@ $(document).ready(function(){
 - it is listening for the click event this is event driven
 - our example only runs once. So if we keep clicking the button we don't see console message again and again, instead only the function runs, only that line.
 - this makes js fast because it stays in memory and fires only that is to be fired and not the whole page
-
-
 
 ### Closures
 
@@ -87,8 +75,6 @@ $(document).ready(function(){
 });
 ```
 
-
-
 **Explanation:**
 
 - when the document ready function starts, it executes & finishes his work, sets up the event listener
@@ -101,8 +87,6 @@ $(document).ready(function(){
 - javascript remembers the var in the outside scope 
 - this is closure. retaining the scope and state after execution
 
-
-
 ### Context
 
 Context is the value of `this` is for the code that is running
@@ -111,8 +95,6 @@ Context is the value of `this` is for the code that is running
 - obj.foo.call(window, 1, 2, 3) -> obj to bind and other parameter
 - obj.foo.apply(window, [1, 2, 3])
 - myBoundFoo = obj.foo.bind(window); calling myBoundFoo will run for window as context
-
-
 
 ### Combination and Permutation
 
@@ -124,8 +106,6 @@ combinations of 2 numbers will be:
 [1, 2], [1, 3], [2, 3]
 ```
 
-
-
 **Permutation:** It refers to all the different groups we can make where order matters
 
 ```
@@ -133,6 +113,3 @@ combinations of 2 numbers will be:
 permutations of 3 numbers will be:
 [1, 2, 3], [3, 2, 1] etc.
 ```
-
-
-

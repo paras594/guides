@@ -1,4 +1,4 @@
-# 	SQL Guide
+# SQL Guide
 
 [TOC]
 
@@ -12,8 +12,6 @@ mysql> GRANT ALL PRIVILEGES ON * . * TO 'newuser'@'localhost';
 mysql> FLUSH PRIVILEGES;
 ```
 
-
-
 ### basics
 
 **Comment**
@@ -25,8 +23,6 @@ mysql> FLUSH PRIVILEGES;
 multiline comment
 */
 ```
-
-
 
 **Data types**
 
@@ -49,8 +45,6 @@ DATETIME # YYYY-MM-DD HH:MI:SS
 TIMESTAMP # YYYY-MM-DD HH:MI:SS UTC
 ```
 
-
-
 **Col Constraints**
 
 ```mysql
@@ -59,10 +53,7 @@ UNIQUE
 DEFAULT
 PRIMARY KEY
 AUTO_INCREMENT
-
 ```
-
-
 
 **Extras**
 
@@ -70,17 +61,11 @@ AUTO_INCREMENT
 NOW()
 ```
 
-
-
-
-
 ### Create database
 
 ```mysql
 CREATE DATABASE dbname;
 ```
-
-
 
 ### Using database
 
@@ -88,16 +73,12 @@ CREATE DATABASE dbname;
 USE dbname;
 ```
 
-
-
 ### Delete database
 
 ```mysql
 DROP DATABASE IF EXISTS dbname;
 DROP DATABASE dbname;
 ```
-
-
 
 ### Working with tables
 
@@ -109,15 +90,11 @@ SHOW TABLES;
 SHOW FULL TABLES; # includes table type
 ```
 
-
-
 **See a table structure**
 
 ```mysql
 DESCRIBE employees;
 ```
-
-
 
 **Creating table**
 
@@ -132,7 +109,7 @@ CREATE TABLE table_name (
 );
 
 CREATE TABLE mytable (
-	id INT PRIMARY KEY AUTO_INCREMENT,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     gender CHAR(1) NOT NULL,
     phone VARCHAR(255),
@@ -146,7 +123,7 @@ CREATE TABLE mentorships (
     mentee_id INT NOT NULL,
     status VARCHAR(255) NOT NULL,
     project VARCHAR(255) NOT NULL,
-    
+
     PRIMARY KEY (mentor_id, mentee_id, project),
     CONSTRAINT fk1 FOREIGN KEY(mentor_id) REFERENCES
     co_employees(id) ON DELETE CASCADE ON UPDATE RESTRICT,
@@ -154,10 +131,7 @@ CREATE TABLE mentorships (
     co_employees(id) ON DELETE CASCADE ON UPDATE RESTRICT,
     CONSTRAINT mm_constraint UNIQUE(mentor_id, mentee_id)
 );
-
 ```
-
-
 
 **Altering table**
 
@@ -173,21 +147,17 @@ ALTER TABLE employees
 
 # alter foreign key constraints
 ALTER TABLE mentorships
-	DROP FOREIGN KEY fk2;
+    DROP FOREIGN KEY fk2;
 ALTER TABLE mentorships
-	ADD CONSTRAINT fk2 FOREIGN KEY(mentee_id) REFERENCES employees(id) ON DELETE CASCADE ON UPDATE CASCADE,
-	DROP INDEX mm_constraint;
+    ADD CONSTRAINT fk2 FOREIGN KEY(mentee_id) REFERENCES employees(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    DROP INDEX mm_constraint;
 ```
-
-
 
 **Delete table**
 
 ```mysql
 DROP TABLE IF EXISTS table_name;
 ```
-
-
 
 ### Working with data
 
@@ -196,8 +166,6 @@ DROP TABLE IF EXISTS table_name;
 ```mysql
 SELECT * FROM table_name;
 ```
-
-
 
 **Insert data**
 
@@ -209,8 +177,6 @@ INSERT INTO employees (em_name, gender, contact_number, salary, years_in_company
 ('James Lee', 'M', '516-514-6568', 3500, 11),
 ('Peter Pasternak', 'M', '845-644-7919', 6010, 10);
 ```
-
-
 
 **Update data**
 
@@ -224,16 +190,12 @@ SET contact_number = '516-514-1729'
 WHERE id = 1;
 ```
 
-
-
 **Deleting data**
 
 ```mysql
 DELETE FROM table_name
 WHERE condition;
 ```
-
-
 
 ### Query data
 
@@ -285,8 +247,6 @@ SELECT * FROM employees WHERE
 (years_in_company > 5 OR salary > 5000) AND gender = 'F';
 ```
 
-
-
 **Sub queries**
 
 Subqueries are commonly used to filter the results of one table based on the
@@ -297,8 +257,6 @@ SELECT * FROM employees WHERE id IN
 (SELECT mentor_id FROM mentorships WHERE project = 'SQF LIMITED');
 ```
 
-
-
 **Sorting**
 
 ```mysql
@@ -307,8 +265,6 @@ SELECT * FROM employees ORDER BY gender, em_name;
 # descending
 SELECT * FROM employees ORDER BY gender DESC, em_name;
 ```
-
-
 
 **functions**
 
@@ -337,10 +293,7 @@ SELECT MIN(salary) FROM employees;
 SELECT MAX(salary), MIN(years_in_company) FROM employees;
 
 SELECT SUM(salary) FROM employees;
-
 ```
-
-
 
 **Grouping data**
 
@@ -352,10 +305,7 @@ SELECT gender, MAX(salary) FROM employees GROUP BY gender;
 # Suppose we want to display rows from the previous table only when the maximum salary is above 10000
 SELECT gender, MAX(salary) FROM employees GROUP BY gender HAVING
 MAX(salary) > 10000;
-
 ```
-
-
 
 **Joins: Select and combine data from one or more table**
 
@@ -365,15 +315,13 @@ Types of joins:
 - LEFT JOIN: take all rows from left table, if no value in right table, fill it with null
 - RIGHT JOIN: take all rows from right table, if no value in left table, fill it with null
 
-
-
 T1: Table one & table two
 
-|  A   |  B   |      |  C   |   B   |  D   |
-| :--: | :--: | ---- | :--: | :---: | :--: |
-|  1   | 259  |      |  2   | 218.1 | ABC  |
-|  2   | 125  |      |  3   | 511.5 | DEF  |
-|  3   | 731  |      |  4   | 219.9 | GHI  |
+| A   | B   |     | C   | B     | D   |
+|:---:|:---:| --- |:---:|:-----:|:---:|
+| 1   | 259 |     | 2   | 218.1 | ABC |
+| 2   | 125 |     | 3   | 511.5 | DEF |
+| 3   | 731 |     | 4   | 219.9 | GHI |
 
 ```mysql
 # syntax
@@ -416,8 +364,6 @@ ON
 A = C;
 ```
 
-
-
 **Union & Union All**
 
 The UNION keyword is used to combine the results of two or more SELECT statements. Each SELECT statement must have the same number of columns.
@@ -430,8 +376,6 @@ SELECT_statement_one
 UNION
 SELECT_statement_two;
 ```
-
-
 
 ### Views
 
@@ -477,8 +421,6 @@ DROP VIEW [IF EXISTS] name_of_view; # syntax
 DROP VIEW IF EXISTS myView;
 ```
 
-
-
 ### Triggers
 
 A trigger is a series of actions that is activated when a defined event occurs for a specific table. This event can either be an INSERT , UPDATE or DELETE . Triggers can be invoked before or after the event.
@@ -495,7 +437,7 @@ CREATE TRIGGER name_of_trigger BEFORE/AFTER
 UPDATE/DELETE/INSERT ON name_of_table FOR EACH ROW
 
 BEGIN
-	-- ACTIONS TO TAKE
+    -- ACTIONS TO TAKE
 END $$
 
 DELIMITER ; # this changes dilimiter back to semi colon
@@ -504,18 +446,15 @@ DELIMITER ; # this changes dilimiter back to semi colon
 DELIMITER $$
 
 CREATE TRIGGER update_ex_employees BEFORE DELETE ON employees FOR EACH ROW
-BEGIN	
-	INSERT INTO ex_employees (em_id, em_name, gender) VALUES (OLD.id, OLD.em_name, OLD.gender);
+BEGIN    
+    INSERT INTO ex_employees (em_id, em_name, gender) VALUES (OLD.id, OLD.em_name, OLD.gender);
 END $$
 
 DELIMITER ; 
 
 # deleting a trigger
 DROP TRIGGER IF EXISTS update_ex_employees;
-
 ```
-
-
 
 important points:
 
@@ -525,8 +464,6 @@ important points:
   the inserted data (or data to be inserted).
 - For triggers activated by an UPDATE event, we use the OLD keyword to retrieve
   the original data, and the NEW keyword to retrieve the updated data.
-
-
 
 ### Variables
 
@@ -544,8 +481,6 @@ SELECT * FROM mentorships WHERE mentee_id = @em_id;
 SELECT * FROM employees WHERE id = @em_id;
 ```
 
-
-
 ### Stored Routines
 
 A stored routine is a set of SQL statements that are grouped, named and stored together in the server. Do not worry if this does not make much sense to you at the moment. We’ll discuss it in greater depth later.
@@ -555,8 +490,6 @@ There are two types of stored routines :
 - stored procedures 
 
 - stored functions.
-
-
 
 **Stored Procedures**
 
@@ -573,8 +506,8 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE select_info()
 BEGIN
-	SELECT * FROM employees;
-	SELECT * FROM mentorships;
+    SELECT * FROM employees;
+    SELECT * FROM mentorships;
 END $$
 DELIMITER ;
 
@@ -582,9 +515,9 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE employee_info(IN p_em_id INT)
 BEGIN
-	SELECT * FROM mentorships WHERE mentor_id = p_em_id;
-	SELECT * FROM mentorships WHERE mentee_id = p_em_id;
-	SELECT * FROM employees WHERE id = p_em_id;
+    SELECT * FROM mentorships WHERE mentor_id = p_em_id;
+    SELECT * FROM mentorships WHERE mentee_id = p_em_id;
+    SELECT * FROM employees WHERE id = p_em_id;
 END $$
 DELIMITER ;
 
@@ -592,7 +525,7 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE employee_name_gender(IN p_em_id INT, OUT p_name VARCHAR(255), OUT p_gender CHAR(1))
 BEGIN
-	SELECT em_name, gender INTO p_name, p_gender FROM employees WHERE id = p_em_id;
+    SELECT em_name, gender INTO p_name, p_gender FROM employees WHERE id = p_em_id;
 END $$
 DELIMITER ;
 
@@ -600,7 +533,7 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE get_mentor(INOUT p_em_id INT, IN p_project VARCHAR(255))
 BEGIN
-	SELECT mentor_id INTO p_em_id FROM mentorships WHERE mentee_id = p_em_id AND project = p_project;
+    SELECT mentor_id INTO p_em_id FROM mentorships WHERE mentee_id = p_em_id AND project = p_project;
 END $$
 DELIMITER ;
 
@@ -618,8 +551,6 @@ SELECT @v_id;
 # deleting procedure
 DROP PROCEDURE IF EXISTS name_of_procedure;
 ```
-
-
 
 **Stored Functions**
 
@@ -641,9 +572,9 @@ END $$
 DELIMITER $$
 CREATE FUNCTION calculateBonus(p_salary DOUBLE, p_multiple DOUBLE) RETURNS DOUBLE DETERMINISTIC
 BEGIN
-	DECLARE bonus DOUBLE(8, 2); # declare local var, can also give initial val
-	SET bonus = p_salary*p_multiple; # set value of local var
-	RETURN bonus; # return value
+    DECLARE bonus DOUBLE(8, 2); # declare local var, can also give initial val
+    SET bonus = p_salary*p_multiple; # set value of local var
+    RETURN bonus; # return value
 END $$
 DELIMITER ;
 
@@ -659,8 +590,6 @@ FROM employees;
 DROP FUNCTION IF EXISTS calculateBonus
 ```
 
-
-
 important points:
 
 - IN, OUT, INOUT are three types of parameters. IN means input variables, and OUT means output variables
@@ -675,8 +604,6 @@ important points:
   - MODIFIES SQL DATA (indicates that the function may modify the data in the database)
   - CONTAINS SQL (indicates that the function contains SQL instructions, but does not contain statements that read or write data).
 
-
-
 ### IF ELSEIF ELSE
 
 ```mysql
@@ -685,8 +612,8 @@ CREATE FUNCTION if_demo_A(x INT) RETURNS VARCHAR(255)
 DETERMINISTIC
 BEGIN
     IF x > 0 THEN RETURN 'x is positive';
-    	ELSEIF x = 0 THEN RETURN 'x is zero';
-    	ELSE RETURN 'x is negative';
+        ELSEIF x = 0 THEN RETURN 'x is zero';
+        ELSE RETURN 'x is negative';
     END IF;
 END $$
 DELIMITER ;
@@ -696,13 +623,11 @@ CREATE FUNCTION if_demo_B(x INT) RETURNS VARCHAR(255)
 DETERMINISTIC
 BEGIN
     IF x > 0 THEN RETURN 'x is positive';
-    	ELSEIF x = 0 THEN RETURN 'x is zero';
+        ELSEIF x = 0 THEN RETURN 'x is zero';
     END IF;
 END $$
 DELIMITER ;
 ```
-
-
 
 ### CASE statements
 
@@ -728,11 +653,11 @@ DELIMITER $$
 CREATE FUNCTION case_demo_A(x INT) RETURNS VARCHAR(255)
 DETERMINISTIC
 BEGIN
-	CASE x
-		WHEN 1 THEN RETURN 'x is 1';
-		WHEN 2 THEN RETURN 'x is 2';
-		ELSE RETURN 'x is neither 1 nor 2';
-	END CASE;
+    CASE x
+        WHEN 1 THEN RETURN 'x is 1';
+        WHEN 2 THEN RETURN 'x is 2';
+        ELSE RETURN 'x is neither 1 nor 2';
+    END CASE;
 END $$
 DELIMITER ;
 
@@ -742,13 +667,13 @@ CREATE FUNCTION case_demo_B(x INT) RETURNS VARCHAR(255)
 DETERMINISTIC
 BEGIN
     CASE
-    	WHEN x > 0 THEN RETURN 'x is positive';
-    	WHEN x = 0 THEN RETURN 'x is zero';
-    	ELSE RETURN 'x is negative';
+        WHEN x > 0 THEN RETURN 'x is positive';
+        WHEN x = 0 THEN RETURN 'x is zero';
+        ELSE RETURN 'x is negative';
     END CASE;
 END $$
 DELIMITER ;
-	
+
 # e.g. 3
 DELIMITER $$
 CREATE FUNCTION case_demo_B(x INT) RETURNS VARCHAR(255)
@@ -763,14 +688,12 @@ END $$
 DELIMITER ;
 ```
 
-
-
 ### WHILE statement
 
 ```mysql
 # syntax
 [name of while statement : ] WHILE condition is true DO
-	-- some tasks
+    -- some tasks
 END WHILE;
 
 # e.g.
@@ -781,18 +704,16 @@ BEGIN
     DECLARE z VARCHAR(255);
     SET z = '';
     while_example: WHILE x<y DO
-    	SET x = x + 1;
-   		SET z = concat(z, x);
+        SET x = x + 1;
+           SET z = concat(z, x);
     END WHILE;
-    
+
     RETURN z;
 END $$
 DELIMITER ;
 ```
 
-
-
-### Cursors 
+### Cursors
 
 A cursor is a mechanism that allows us to step through the rows returned by a SQL statement.
 
@@ -828,36 +749,31 @@ DELIMITER $$
 CREATE FUNCTION get_employees () RETURNS VARCHAR(255)
 DETERMINISTIC
 BEGIN
-	DECLARE v_employees VARCHAR(255) DEFAULT '';
-	DECLARE v_name VARCHAR(255);
-	DECLARE v_gender CHAR(1);
-	DECLARE v_done INT DEFAULT 0;
+    DECLARE v_employees VARCHAR(255) DEFAULT '';
+    DECLARE v_name VARCHAR(255);
+    DECLARE v_gender CHAR(1);
+    DECLARE v_done INT DEFAULT 0;
 
-	DECLARE cur CURSOR FOR
-		SELECT em_name, gender FROM employees;
-		
-	DECLARE CONTINUE HANDLER FOR NOT FOUND SET v_done = 1;
-	
-	OPEN cur;
-	
-	employees_loop: LOOP
+    DECLARE cur CURSOR FOR
+        SELECT em_name, gender FROM employees;
+
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET v_done = 1;
+
+    OPEN cur;
+
+    employees_loop: LOOP
         FETCH cur INTO v_name, v_gender;
-        
+
         IF v_done = 1 THEN LEAVE employees_loop;
         ELSE SET v_employees = concat(v_employees, ', ', v_name, ': ', v_gender);
         END IF;
     END LOOP;
-    
+
     RETURN substring(v_employees, 3);
-	
+
 END $$
 DELIMITER ;
-
 ```
-
-
-
-
 
 ### Points
 

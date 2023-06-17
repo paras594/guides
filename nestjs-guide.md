@@ -1,14 +1,10 @@
 # Nest js Guide
 
-
-
 ### Install CLI
 
 ```bash
 npm i -g @nestjs/cli
 ```
-
-
 
 ### Create project
 
@@ -16,15 +12,11 @@ npm i -g @nestjs/cli
 nest new project-name
 ```
 
-
-
 ### Run project
 
-````bash
+```bash
 npm run start:dev # starts on 3000
-````
-
-
+```
 
 ### Creating module
 
@@ -34,15 +26,11 @@ nest generate module users
 nest g module users
 ```
 
-
-
 ### Create controller
 
 ```bash
 nest g controller users
 ```
-
-
 
 ### Create Service
 
@@ -50,19 +38,13 @@ nest g controller users
 nest g service users
 ```
 
-
-
 ## Swagger Setup
-
-
 
 **Install**
 
 ```bash
 npm i @nest/swagger swagger-ui-express
 ```
-
-
 
 **In main.ts**
 
@@ -89,8 +71,6 @@ async function bootstrap() {
 bootstrap();
 ```
 
-
-
 ### Add a section for controller in swagger docs
 
 in controller of a module
@@ -99,8 +79,6 @@ in controller of a module
 @ApiTags("users")
 @Controller("users")
 ```
-
-
 
 ### Defining the shape of req.body and res
 
@@ -112,14 +90,11 @@ import {ApiProperty} from "@nestjs/swagger";
 export class CreateUserDto {
   @ApiProperty()
   name: string;
-  
+
   @ApiProperty({required: false})
   age?: number;
 }
-
 ```
-
-
 
 **For response type, do the following in controller**
 
@@ -127,8 +102,4 @@ export class CreateUserDto {
 import { ApiCreatedResponse, ApiTags } from "@nestjs/swagger";
 
 @ApiCreatedResponse({type: User}) // User is a class defined by us
-
-
-
 ```
-

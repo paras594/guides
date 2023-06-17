@@ -1,12 +1,8 @@
 # Mongodb Guide
 
-
-
 - Database: It holds different collections(tables) in it. e.g. my_project_db
 - Collection: A collection is like a table in SQL. It contains documents(rows). e.g. Users collection
 - Document: A document is one row in SQL. It contains key value pairs. e.g { name: "paras", age: 2 }
-
-
 
 ### Start mongo server
 
@@ -15,22 +11,16 @@ systemctl start mongod
 systemctl status mongod
 ```
 
-
-
 ### Start mongo shell
 
 ```bash
 mongo
 ```
 
-
-
 ```bash
 # clear screen
 > cls
 ```
-
-
 
 ### Exit shell
 
@@ -38,21 +28,13 @@ mongo
 > exit
 ```
 
-
-
-
-
 ## Basics
-
-
 
 #### Show databases
 
-````bash
+```bash
 > show dbs
-````
-
-
+```
 
 #### Switching to a db
 
@@ -60,15 +42,11 @@ mongo
 > use mydb # it will switch but won't show in dbs until data is added
 ```
 
-
-
 #### Using db
 
 ```bash
 > db.mydb.insertOne({ ... })
 ```
-
-
 
 ### Basic CRUD
 
@@ -90,8 +68,6 @@ db.mydb.find({ name: true })
 db.mydb.find({ age: { $gt: 20 }})
 ```
 
-
-
 - Insert
 
 ```bash
@@ -99,28 +75,24 @@ db.mydb.find({ age: { $gt: 20 }})
 db.mydb.insert({ name: "xyz", age: 20 })
 
 db.mydb.insertMany([
-	{ name: "abc", age: 20 },
-	{ name: "mno", age: 21}
+    { name: "abc", age: 20 },
+    { name: "mno", age: 21}
 ])
 ```
-
-
 
 - Update
 
 ```bash
 # update one
 db.mydb.updateOne({ _id: 123 }, {
-	$set: { name: "xyz" }
+    $set: { name: "xyz" }
 })
 
 # update many
 db.mydb.updateMany({ age: 20 }, {
-	$set: { name: "common" }
+    $set: { name: "common" }
 })
 ```
-
-
 
 - Replace
 
@@ -131,8 +103,6 @@ db.mydb.replaceOne({ name: "xyz" }, { name: "xyz", age: 12 })
 # replace many
 db.mydb.replaceMany({ age: 12 }, { name: "xyz", age: 20 })
 ```
-
-
 
 - Delete
 
@@ -147,8 +117,6 @@ db.mydb.deleteOne({ _id: 123 })
 db.mydb.deleteMany({ age: 20 })
 ```
 
-
-
 ### Get required fields only (Projections)
 
 ```bash
@@ -158,8 +126,6 @@ db.mydb.deleteMany({ age: 20 })
 # return name field but exclude id
 > db.mydb.find({}, {name: 1, _id: 0})
 ```
-
-
 
 ### Nested/Embedded Documents
 
@@ -174,28 +140,22 @@ db.mydb.deleteMany({ age: 20 })
 }
 ```
 
-
-
 ```bash
 # query nested data
 # get document document where school name is "abc"
 > db.mydb.find({ "school.name": "abc" })
 ```
 
-
-
 ## Working with GeoJSON Data
-
-
 
 ```bash
 # adding a location
 > db.places.insertOne({
-	name: "California Academy of Science",
-	location: {
-		type: "Point",
-		coordinates: [-122.4724356, 37.7672544] # long, lat
-	}
+    name: "California Academy of Science",
+    location: {
+        type: "Point",
+        coordinates: [-122.4724356, 37.7672544] # long, lat
+    }
 })
 
 # create geospatial index 
@@ -203,22 +163,18 @@ db.mydb.deleteMany({ age: 20 })
 
 # querying nearby places from db
 > db.places.find({
-	location: {
-		$near: {
-			$geometry: {
-				type: "Point",
-				coordinates: [-122.471114, 37.771104]
-			},
-			$maxDistance: 400, #meters
-			$minDistance: 10, #meters
-		}
-	}
+    location: {
+        $near: {
+            $geometry: {
+                type: "Point",
+                coordinates: [-122.471114, 37.771104]
+            },
+            $maxDistance: 400, #meters
+            $minDistance: 10, #meters
+        }
+    }
 })
-
-
 ```
-
-
 
 ## Aggregation Framework
 
@@ -235,8 +191,6 @@ pointers:
 - $match: find items
 - $group
 
-
-
 **Usage :**
 
 ```js
@@ -249,8 +203,6 @@ db.persons.aggregate([
 {_id: {state: "tayside"}, totalPersons: 4}
 */
 ```
-
-
 
 - $group needs _id key. In id key you define the field to group the docs by. 
 - Next key after id defines the field name in which you want your result to store. e.g. sum
