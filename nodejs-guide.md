@@ -934,6 +934,79 @@ app.post("/upload", upload.single("image"), (req, res) => {
 });
 ```
 
+### AWS S3 image upload (v3 sdk)
+```bash
+# installs
+npm i multer multer-s3 @aws-sdk/client-s3
+```
+
+**Create uploadImage middleware**
+```javascript
+// uploadImage.js
+const multer = require("multer");
+const multerS3 = require("multer-s3");
+const { S3Client } = require("@aws-sdk/client-s3");
+
+const s3 = new S3Client({
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_ID,
+    secretAccessKey: process.env.AWS_SECRET_KEY,
+  },
+  region: "ap-south-1",
+});
+
+const s3Storage = multerS3({
+  s3: s3,
+  bucket: "project-name",
+  acl: "public-read",
+  metadata: function (req, file, cb) {
+    cb(null, { fieldname: file.fieldname });
+  },
+  key: function (req, file, cb) {
+    cb(null, Date.now() + "_" + file.fieldname + "_" + file.originalname);
+  },
+});
+
+// utility function to check for file type
+function sanitizeFile(file, cb) {
+	// Define the allowed extension
+	const fileExts = [".png", ".jpg", ".jpeg", ".gif"];
+	// Check allowed extensions
+	const isAllowedExt = fileExts.includes(
+		path.extname(file.originalname.toLowerCase())
+	);
+
+	// Mime type must be an image
+	const isAllowedMimeType = file.mimetype.startsWith("image/");
+	if (isAllowedExt && isAllowedMimeType) {
+		return cb(null, true); // no errors
+	} else {
+		// pass error msg to callback, which can be displaye in frontend
+		cb("Error: File type not allowed!");
+	}
+}
+
+const uploadImage = multer({
+  storage: s3Storage,
+  fileFilter: function (req, file, callback) {
+    sanitizeFile(file, callback)
+  },
+  limits: {
+    fileSize: 1024 * 1024 * 2, // 2mb
+  },
+});
+
+module.exports = uploadImage;
+```
+
+**Usage in routes**
+```javascript
+router.put("/profile-image", uploadImage.single("image"), (req, res) => {
+	// req.file = {fieldname, originalname, mimetype, size, bucket, key, location}
+    console.log("Image Url:", req.file.location);
+});
+```
+
 ## Email Systems
 
 ### Using gmail SMTP
