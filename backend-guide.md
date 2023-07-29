@@ -1,5 +1,3 @@
-# Backend Guide
-
 [TOC]
 
 ### Roadmap

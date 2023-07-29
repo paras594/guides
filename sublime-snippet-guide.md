@@ -1,6 +1,3 @@
-# Sublime Snippets Guide
-
-
 
 ### TL;DR
 

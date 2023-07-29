@@ -1,6 +1,3 @@
-# Problem Solving
-
-
 
 ### General Problem Solving Techniques
 

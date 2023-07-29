@@ -1,6 +1,3 @@
-# My Snippets
-
-
 
 ### Javascript
 

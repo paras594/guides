@@ -1,6 +1,3 @@
-# Next.js Guide
-
-
 
 ### Start Project
 

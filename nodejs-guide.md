@@ -1,5 +1,3 @@
-# Node.js and Express.js Guide
-
 [TOC]
 
 ### Folder Structure

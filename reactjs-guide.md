@@ -1,4 +1,3 @@
-# React Guide
 
 [TOC]
 

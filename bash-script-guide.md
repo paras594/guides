@@ -1,9 +1,4 @@
 
-
-# Bash Script Guide
-
-
-
 **Create Script** 
 
 ```bash

@@ -1,6 +1,3 @@
-# Algorithms Guide
-
-
 
 ### Binary Search
 

@@ -1,5 +1,3 @@
-# Git Guide
-
 
 
 [toc]
@@ -26,10 +24,8 @@ gaa
 ### Remove file from staging area
 
 ````bash
-
+git remove --staged <filename>
 ````
-
-
 
 
 
@@ -54,8 +50,14 @@ gc -m "my git message"
 ```
 
 
+### Uncommit Prev Changes
 
-### Check git log
+```shell
+git reset --soft HEAD~1
+```
+
+
+ #  ## Check git log
 
 ```bash
 git log --oneline
@@ -101,7 +103,6 @@ gb
 ```bash
 git branch -d branch-name
 ```
-
 
 
 

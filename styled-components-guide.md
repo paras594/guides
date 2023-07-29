@@ -1,6 +1,3 @@
-# Styled-components guide
-
-
 
 ## Helpful Snippets
 

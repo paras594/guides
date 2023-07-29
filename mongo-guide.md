@@ -1,4 +1,3 @@
-# Mongodb Guide
 
 - Database: It holds different collections(tables) in it. e.g. my_project_db
 - Collection: A collection is like a table in SQL. It contains documents(rows). e.g. Users collection

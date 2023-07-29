@@ -1,6 +1,3 @@
-# Python Guide
-
-
 
 ### Compiling python files
 

@@ -1,4 +1,3 @@
-# Programming Terms
 
 ### First Class Functions
 

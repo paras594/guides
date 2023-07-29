@@ -24,10 +24,30 @@ nest g service users
 3. add versioning
 4. add validation setup for dtos 
 
-## Extras
+Monorepo 
 
-1. golevel rabbitmq package
+**Nestjs Checklist**
+failures:
+- [ ] connect to mongodb using typeorm
+
+- [x] module create
+- [x] controller create
+- [x] service create 
+- [x] validation using dtos
+- [x] setup and use .env 
+- [x] create basic apis
+- [x] connect to mongodb using mongoose
+- [x] versioning an api
+- [x] rabbitmq message queue setup 
+
+### extras:
+1. golevel rabbitmq 
 2. uuid + types
+3. 
+
+hybrid: search this when you want both req-res and microservices 
+
+
 
 ## Working on a modules
 

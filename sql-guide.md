@@ -1,5 +1,3 @@
-# SQL Guide
-
 [TOC]
 
 ### create user and grant all permissions
